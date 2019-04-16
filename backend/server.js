@@ -52,7 +52,7 @@ foodRoutes.route('/update/:id').post(function(req, res) {
             res.status(404).send('data is not found');
         else
             food.food_description = req.body.food_description;
-            food.food_responsible = req.body.food_responsible;
+            food.food_calories = req.body.food_calories;
             food.food_priority = req.body.food_priority;
             food.food_completed = req.body.food_completed;
 

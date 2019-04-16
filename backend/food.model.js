@@ -5,7 +5,7 @@ let Food = new Schema({
     food_description: {
         type: String
     },
-    food_responsible: {
+    food_calories: {
         type: String
     },
     food_priority: {

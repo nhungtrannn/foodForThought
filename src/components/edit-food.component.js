@@ -4,7 +4,7 @@ export default class EditFood extends Component {
     render() {
         return (
             <div>
-                <p>Welcome to Edit Food Component</p>
+                <p>Edit Food</p>
             </div>
         )
     }

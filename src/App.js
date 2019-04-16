@@ -8,6 +8,7 @@ import FoodList from "./components/food-list.component";
 
 import logo from "./logo.svg";
 
+
 class App extends Component {
   render() {
     return (

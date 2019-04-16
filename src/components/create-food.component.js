@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios'; 
 
 export default class CreateFood extends Component {
 
@@ -6,13 +7,13 @@ export default class CreateFood extends Component {
         super(props);
 
         this.onChangeFoodDescription = this.onChangeFoodDescription.bind(this);
-        this.onChangeFoodResponsible = this.onChangeFoodResponsible.bind(this);
+        this.onChangeFoodCalories = this.onChangeFoodCalories.bind(this);
         this.onChangeFoodPriority = this.onChangeFoodPriority.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             food_description: '',
-            food_responsible: '',
+            food_calories: '',
             food_priority: '',
             food_completed: false
         }
@@ -24,9 +25,9 @@ export default class CreateFood extends Component {
         });
     }
 
-    onChangeFoodResponsible(e) {
+    onChangeFoodCalories(e) {
         this.setState({
-            food_responsible: e.target.value 
+            food_calories: e.target.value 
         });
     }
 
@@ -41,13 +42,23 @@ export default class CreateFood extends Component {
 
         console.log(`form submitted:`);
         console.log(`Food Description: ${this.state.food_description}`);
-        console.log(`Food Responsible: ${this.state.food_responsible}`);
+        console.log(`Food Calories: ${this.state.food_calories}`);
         console.log(`Food Priority: ${this.state.food_priority}`);
         console.log(`Food Completed: ${this.state.food_completed}`);
 
+        const newFood = {
+            food_description: this.state.food_description,
+            food_calories: this.state.food_calories,
+            food_priority: this.state.food_priority,
+            food_completed: this.state.food_completed
+        }
+
+        axios.post('http://localhost:4000/food/add', newFood)
+            .then(res => console.log(res.data));
+
         this.setState({
             food_description: '',
-            food_responsible: '',
+            food_calories: '',
             food_priority: '',
             food_completed: false
         })
@@ -68,11 +79,11 @@ export default class CreateFood extends Component {
                                />
                     </div>
                     <div className="form-group">
-                        <label>Responsible: </label>
+                        <label>Calories: </label>
                         <input type="text"
                                className="form-control"
-                               value={this.state.food_responsible}
-                               onChange={this.onChangeFoodResponsible}
+                               value={this.state.food_calories}
+                               onChange={this.onChangeFoodCalories}
                                />
                     </div>
                     <div className="form-group">
@@ -80,34 +91,45 @@ export default class CreateFood extends Component {
                             <input className="form-check-input"
                                    type="radio"
                                    name="priorityOptions"
-                                   id="priorityLow"
-                                   value="Low"
-                                   checked={this.state.food_priority==='Low'}
+                                   id="priorityBreakfast"
+                                   value="Breakfast"
+                                   checked={this.state.food_priority==='Breakfast'}
                                    onChange={this.onChangeFoodPriority}
                                    />
-                            <label className="form-check-label">Low</label>
+                            <label className="form-check-label">Breakfast</label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input className="form-check-input"
                                    type="radio"
                                    name="priorityOptions"
-                                   id="priorityMedium"
-                                   value="Medium"
-                                   checked={this.state.food_priority==='Medium'}
+                                   id="priorityLunch"
+                                   value="Lunch"
+                                   checked={this.state.food_priority==='Lunch'}
                                    onChange={this.onChangeFoodPriority}
                                    />
-                            <label className="form-check-label">Medium</label>
+                            <label className="form-check-label">Lunch</label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input className="form-check-input"
                                    type="radio"
                                    name="priorityOptions"
-                                   id="priorityHigh"
-                                   value="High"
-                                   checked={this.state.food_priority==='High'}
+                                   id="priorityDinner"
+                                   value="Dinner"
+                                   checked={this.state.food_priority==='Dinner'}
                                    onChange={this.onChangeFoodPriority}
                                    />
-                            <label className="form-check-label">High</label>
+                            <label className="form-check-label">Dinner</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input"
+                                   type="radio"
+                                   name="priorityOptions"
+                                   id="prioritySnack"
+                                   value="Snack"
+                                   checked={this.state.food_priority==='Snack'}
+                                   onChange={this.onChangeFoodPriority}
+                                   />
+                            <label className="form-check-label">Snack</label>
                         </div>
                     </div>
                     <div className="form-group">
